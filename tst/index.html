@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stemwijzer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark">
+
+<div id="container" class="w-75 container bg-white p-3">
+    <h1 id="stemwijzer">StemWijzer Tweede Kamer 2017</h1>
+    <h2 id="title">Test uw politieke voorkeur aan de hand van 30 stellingen</h2>
+    <h1 id="titel"></h1>
+    <p id="stelling"></p>
+    <div id="buttons">
+        <button id="terug" onclick="back()" class="btn btn-dark">Vraag terug</button>
+        <button id="start" onclick="startVoting()" class="btn btn-dark">start</button>
+
+        <div class="row p-3">
+            <button id="eens" onclick="vote('eens')" class="button">Eens</button>
+            <button id="geen" onclick="vote('geen')" class="button">Geen van beide</button>
+            <button id="oneens" onclick="vote('oneens')" class="button">Oneens</button>
+            <button id="slaover" onclick="vote()" class="button5">Sla deze vraag over</button>
+        </div>
+    </div>
+
+    <button id="partiesButton" onclick="toggleAllParties('opinion')" class="btn btn-dark m-3">Wat vinden de partijen?</button>
+    <button id="bigPartiesButton" onclick="toggleAllParties('big')" class="btn btn-dark m-3">Zie de grote partijen.</button>
+    <button id="secularPartiesButton" onclick="toggleAllParties('secular')" class="btn btn-dark m-3">Zie de seculiere partijen.</button>
+
+    <div id="partiesInfo"></div>
+
+    <div id="opinionParties" class="row" style="display: none;">
+        <div id="collEens" class="col-md-3" style="display: inline-block;"></div>
+        <div id="collOneens" class="col-md-3" style="display: inline-block;"></div>
+        <div id="collGeen" class="col-md-3" style="display: inline-block;"></div>
+    </div>
+
+    <div id="bigParties" style="display: none;">
+    </div>
+
+    <div id="secularParties" style="display: none;">
+    </div>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script src="style.js"></script>
+</body>
+</html>
