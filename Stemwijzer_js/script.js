@@ -21,6 +21,8 @@ extra.style.display = "none";
 pq.style.display = "none";
 
 function startVoting() {
+    // als je op de knop start drukt, dan wordt de title getoond en de vraagtekst en 8 knoppen
+    // en de start tekst verdwijnt
     start.style.display = "none";
     stemwijzer.style.display = "none";
     title.style.display = "none";
@@ -32,7 +34,10 @@ function startVoting() {
     bigPartiesButton.style.display = "inline-block";
     secularPartiesButton.style.display = "inline-block";
     extra.style.display = "inline-block";
-    loadQuestion(vraag);
+
+    // op regel 1 is ingesteld dat vraag = 0 ; hierna wordt de tekst van vraag 0 getoond
+    loadQuestion(vraag);  // lodQuiestion(0)
+
     loadPartiesOpinions();
     loadBigParties();
     loadSecularParties();
@@ -41,9 +46,16 @@ function startVoting() {
 }
 
 function loadQuestion(question) {
+    // haal uit data.js de title en statement voor een bepaalde vraag
+
+
+
     collEens.innerText = "";
     collOneens.innerText = "";
     collGeen.innerText = "";
+
+
+    // bij vraag 0 - verstop de terug knop
     if (vraag >= 1) {
         terug.style.display = "inline-block";
     } else if (vraag <= 1) {
@@ -57,7 +69,9 @@ function loadQuestion(question) {
 }
 
 function vote(voting) {
+    //deze function zorgt dat de vraag die daarna komt wordt getoond en dat alle answers onthoudt.
     answers[vraag] = voting;
+    console.log(answers);
     if (count <= 29) {
         vraag++;
         count++;
@@ -82,6 +96,8 @@ function vote(voting) {
     accordion();
 }
 
+
+//deze function zorgt dat je vraag naar achter gaat.
 function back() {
     if (vraag > 0) {
         vraag--;
@@ -93,6 +109,8 @@ function back() {
     }
 }
 
+//deze function zorgt dat als je op een van de drie buttons hebt gedrukt dat er een bepaalde styling gebeurt
+//"wat vinden de partijen, zie de grote partijen , zie de seculiere partijen"
 function toggleAllParties(button) {
     if (button === 'opinion') {
         opinionParties.style.display = "block";
@@ -113,6 +131,7 @@ function toggleAllParties(button) {
     }
 }
 
+//hier haal t alle parties uit de data.js file
 function loadPartiesOpinions() {
     collEens.innerText = "Eens";
     collOneens.innerText = "Oneens";
@@ -145,6 +164,7 @@ function loadPartiesOpinions() {
     );
 }
 
+//laat zien de grote partijen
 function loadBigParties() {
     var i = 0;
     parties.forEach(function () {
@@ -166,6 +186,7 @@ function loadBigParties() {
     );
 }
 
+//laten zien de seculiere partijen.
 function loadSecularParties() {
     var i = 0;
     parties.forEach(function () {
@@ -189,7 +210,7 @@ function loadSecularParties() {
     );
 }
 
-
+//Extra gewicht op deze vraag, telt een punt extra.
 function extraWight() {
     if (extra.innerText === 'Extra gewicht op deze vraag?') {
         extra.innerText = 'Minder gewicht op deze vraag?';
@@ -200,6 +221,7 @@ function extraWight() {
     }
 }
 
+//hier telt t de partiesname en de score en de extra punten bijelkaar.
 function countPoints() {
     for (var i = 0; i < 30; i++) {
         if (answers[i] === 'eens') {
@@ -216,6 +238,7 @@ function countPoints() {
     }
 }
 
+//laat de score zien.
 function showScore() {
     var i = 0;
     partiesName.forEach(function (key, value) {

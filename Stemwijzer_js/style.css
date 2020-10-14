@@ -1,5 +1,6 @@
 .accordion {
     background-color: #eee;
+    
     color: #444;
     cursor: pointer;
     padding: 18px;
@@ -21,3 +22,4 @@
     background-color: white;
     overflow: hidden;
 }
+
