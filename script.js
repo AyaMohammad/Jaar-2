@@ -19,7 +19,7 @@ bigPartiesButton.style.display = "none";
 secularPartiesButton.style.display = "none";
 extra.style.display = "none";
 pq.style.display = "none";
-
+  
 function startVoting() {
     // als je op de knop start drukt, dan wordt de title getoond en de vraagtekst en 8 knoppen
     // en de start tekst verdwijnt
@@ -35,6 +35,8 @@ function startVoting() {
     secularPartiesButton.style.display = "inline-block";
     extra.style.display = "inline-block";
 
+
+
     // op regel 1 is ingesteld dat vraag = 0 ; hierna wordt de tekst van vraag 0 getoond
     loadQuestion(vraag);  // lodQuiestion(0)
 
@@ -48,7 +50,7 @@ function startVoting() {
 function loadQuestion(question) {
     // haal uit data.js de title en statement voor een bepaalde vraag
 
-
+ 
 
     collEens.innerText = "";
     collOneens.innerText = "";
@@ -78,6 +80,9 @@ function vote(voting) {
         loadQuestion(vraag);
         loadPartiesOpinions();
         pq.style.display = "none";
+        eens.style.color = 'white';
+        oneens.style.color = 'white';
+        geen.style.color = 'white';
     } else {
         titel.innerText = 'De test is over';
         stelling.innerText = 'Dit zijn je resultaten';
@@ -104,8 +109,31 @@ function back() {
         count--;
         loadQuestion(vraag);
         loadPartiesOpinions();
+        buttonsKleur();
         pq.innerText = answers[vraag];
         pq.style.display = 'inline-block'
+        // if (answers[vraag] == 'eens') {
+        //     eens.style.color = 'blue';
+        // }
+        // if (answers[vraag] == 'oneens') {
+        //     oneens.style.color = 'blue';
+        // }
+        // if (answers[vraag] == 'geen') {
+        //     geen.style.color = 'blue';
+        // }
+    }
+}
+
+
+function buttonsKleur(){
+    if (answers[vraag] == 'eens') {
+        eens.style.color = 'blue';
+    }
+    if (answers[vraag] == 'oneens') {
+        oneens.style.color = 'blue';
+    }
+    if (answers[vraag] == 'geen') {
+        geen.style.color = 'blue';
     }
 }
 
@@ -249,6 +277,8 @@ function showScore() {
         partyName = document.createElement('h5');
         partyScore = document.createElement('h5');
 
+
+debugger;
         partyName.innerText = partiesName[i]['name'];
 
         partyScore.innerText = ' - ' + som.toFixed(0) + ' %';
