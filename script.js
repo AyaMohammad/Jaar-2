@@ -80,9 +80,9 @@ function vote(voting) {
         loadQuestion(vraag);
         loadPartiesOpinions();
         pq.style.display = "none";
-        eens.style.color = 'white';
-        oneens.style.color = 'white';
-        geen.style.color = 'white';
+        // eens.style.color = 'white';
+        // oneens.style.color = 'white';
+        // geen.style.color = 'white';
     } else {
         titel.innerText = 'De test is over';
         stelling.innerText = 'Dit zijn je resultaten';
@@ -111,31 +111,41 @@ function back() {
         loadPartiesOpinions();
         buttonsKleur();
         pq.innerText = answers[vraag];
-        pq.style.display = 'inline-block'
-        // if (answers[vraag] == 'eens') {
-        //     eens.style.color = 'blue';
-        // }
-        // if (answers[vraag] == 'oneens') {
-        //     oneens.style.color = 'blue';
-        // }
-        // if (answers[vraag] == 'geen') {
-        //     geen.style.color = 'blue';
-        // }
+        pq.style.display = 'inline-block';
+
+        
     }
 }
 
 
-function buttonsKleur(){
-    if (answers[vraag] == 'eens') {
-        eens.style.color = 'blue';
-    }
-    if (answers[vraag] == 'oneens') {
-        oneens.style.color = 'blue';
-    }
-    if (answers[vraag] == 'geen') {
-        geen.style.color = 'blue';
-    }
-}
+// function buttonsKleur(){
+
+
+//     /*if (answers[vraag] == 'eens') {
+//         eens.style.color = 'blue';
+//     } */
+//     if (answers[vraag] == 'oneens') {
+//         oneens.style.color = 'blue';
+//     }
+//     if (answers[vraag] == 'geen') {
+//         geen.style.color = 'blue';
+//     }
+//     // if (answers[vraag] == {}) {
+//     //     eens.style.color = 'blue';
+//     //     oneens.style.color = 'none';
+//     //     geen.style.color = 'none';
+//     // }
+//     // // if (answers[vraag] == 'oneens') {
+//     // //     oneens.style.color = 'blue';
+//     // //     eens.style.color = 'none';
+//     // //     geen.style.color = 'none';
+//     // // }
+//     // // if (answers[vraag] == 'geen') {
+//     // //     geen.style.color = 'blue';
+//     // //     oneens.style.color = 'none';
+//     // //     eens.style.color = 'none';
+//     // // }
+// }
 
 //deze function zorgt dat als je op een van de drie buttons hebt gedrukt dat er een bepaalde styling gebeurt
 //"wat vinden de partijen, zie de grote partijen , zie de seculiere partijen"
@@ -248,6 +258,7 @@ function extraWight() {
         extraPoint = 0;
     }
 }
+
 
 //hier telt t de partiesname en de score en de extra punten bijelkaar.
 function countPoints() {
