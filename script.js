@@ -73,9 +73,20 @@ function loadQuestion(question) {
 function vote(voting) {
     //deze function zorgt dat de vraag die daarna komt wordt getoond en dat alle answers onthoudt.
     answers[vraag] = voting;
-    console.log(answers);
+    //console.log(answers);
     if (count <= 29) {
+
         vraag++;
+        //als de volgende vraag nog niet ingevult dan doen we alle buttons grijs.
+        if (answers[vraag] === undefined) {
+            geen.style.backgroundColor = '#444';
+            oneens.style.backgroundColor = '#444';
+            eens.style.backgroundColor = '#444';
+            console.log(answers[vraag]);
+            //return;
+        }
+
+
         count++;
         loadQuestion(vraag);
         loadPartiesOpinions();
@@ -118,34 +129,45 @@ function back() {
 }
 
 
-// function buttonsKleur(){
+function buttonsKleur(){
 
 
-//     /*if (answers[vraag] == 'eens') {
-//         eens.style.color = 'blue';
-//     } */
-//     if (answers[vraag] == 'oneens') {
-//         oneens.style.color = 'blue';
-//     }
-//     if (answers[vraag] == 'geen') {
-//         geen.style.color = 'blue';
-//     }
-//     // if (answers[vraag] == {}) {
-//     //     eens.style.color = 'blue';
-//     //     oneens.style.color = 'none';
-//     //     geen.style.color = 'none';
-//     // }
-//     // // if (answers[vraag] == 'oneens') {
-//     // //     oneens.style.color = 'blue';
-//     // //     eens.style.color = 'none';
-//     // //     geen.style.color = 'none';
-//     // // }
-//     // // if (answers[vraag] == 'geen') {
-//     // //     geen.style.color = 'blue';
-//     // //     oneens.style.color = 'none';
-//     // //     eens.style.color = 'none';
-//     // // }
-// }
+    // if (answers[vraag] == 'eens') {
+    //     eens.style.color = 'blue';
+    // }
+    // if (answers[vraag] == 'oneens') {
+    //     oneens.style.color = 'blue';
+    // }
+    // if (answers[vraag] == 'geen') {
+    //     geen.style.color = 'blue';
+    // }
+
+
+    if (answers[vraag] === undefined) {
+        geen.style.backgroundColor = '#444';
+        oneens.style.backgroundColor = '#444';
+        eens.style.backgroundColor = '#444';
+        console.log(answers[vraag]);
+        return;
+    }
+    if (answers[vraag] == 'eens') {
+        eens.style.backgroundColor = 'blue';
+        oneens.style.backgroundColor = '#444';
+        geen.style.backgroundColor = '#444';
+    }
+     else if (answers[vraag] == 'oneens') {
+         oneens.style.backgroundColor = 'blue';
+         eens.style.backgroundColor = '#444';
+         geen.style.backgroundColor = '#444';
+     }
+
+    else if (answers[vraag] == 'geen') {
+        oneens.style.backgroundColor = '#444';
+        eens.style.backgroundColor = '#444';
+        geen.style.backgroundColor = 'blue';
+    }
+
+}
 
 //deze function zorgt dat als je op een van de drie buttons hebt gedrukt dat er een bepaalde styling gebeurt
 //"wat vinden de partijen, zie de grote partijen , zie de seculiere partijen"
