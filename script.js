@@ -1,11 +1,26 @@
-var vraag = 0;
-var answers = {};
-var count = 1;
-
-var partiesName = [];
-var i = 0;
-var extraPoint = 0;
-var partiesCount = [];
+var vraag = 0,
+    i = 0,
+    count = 1,
+    extraPoint = 0,
+    answers = {},
+    partiesName = [],
+    partiesCount = [],
+    eens = document.getElementById('eens'),
+    oneens = document.getElementById('oneens'),
+    geen = document.getElementById('geen'),
+    terug = document.getElementById('terug'),
+    slaover = document.getElementById('slaover'),
+    partiesButton = document.getElementById('partiesButton'),
+    bigPartiesButton = document.getElementById('bigPartiesButton'),
+    secularPartiesButton = document.getElementById('secularPartiesButton'),
+    allButton = document.getElementById('allButton'),
+    extra = document.getElementById('extra'),
+    pq = document.getElementById('pq'),
+    start = document.getElementById('start'),
+    stemwijzer = document.getElementById('stemwijzer'),
+    stelling = document.getElementById('stelling'),
+    title = document.getElementById('title'),
+    titel = document.getElementById('titel');
 
 const partiesSize = 5;
 
@@ -17,9 +32,10 @@ slaover.style.display = "none";
 partiesButton.style.display = "none";
 bigPartiesButton.style.display = "none";
 secularPartiesButton.style.display = "none";
+allButton.style.display = "none";
 extra.style.display = "none";
 pq.style.display = "none";
-  
+
 function startVoting() {
     // als je op de knop start drukt, dan wordt de title getoond en de vraagtekst en 8 knoppen
     // en de start tekst verdwijnt
@@ -33,12 +49,11 @@ function startVoting() {
     partiesButton.style.display = "inline-block";
     bigPartiesButton.style.display = "inline-block";
     secularPartiesButton.style.display = "inline-block";
+    allButton.style.display = "inline-block";
     extra.style.display = "inline-block";
 
-
-
     // op regel 1 is ingesteld dat vraag = 0 ; hierna wordt de tekst van vraag 0 getoond
-    loadQuestion(vraag);  // lodQuiestion(0)
+    loadQuestion(vraag);  // loadQuestion(0)
 
     loadPartiesOpinions();
     loadBigParties();
@@ -49,13 +64,9 @@ function startVoting() {
 
 function loadQuestion(question) {
     // haal uit data.js de title en statement voor een bepaalde vraag
-
- 
-
     collEens.innerText = "";
     collOneens.innerText = "";
     collGeen.innerText = "";
-
 
     // bij vraag 0 - verstop de terug knop
     if (vraag >= 1) {
@@ -63,9 +74,11 @@ function loadQuestion(question) {
     } else if (vraag <= 1) {
         terug.style.display = "none";
     }
+
     opinionParties.style.display = "none";
     bigParties.style.display = "none";
     secularParties.style.display = "none";
+
     titel.innerText = count + '. ' + subjects[question]['title'];
     stelling.innerText = subjects[question]['statement'];
 }
@@ -73,8 +86,7 @@ function loadQuestion(question) {
 function vote(voting) {
     //deze function zorgt dat de vraag die daarna komt wordt getoond en dat alle answers onthoudt.
     answers[vraag] = voting;
-    //console.log(answers);
-    if (count <= 29) {
+    if (count < subjects.length) {
 
         vraag++;
         //als de volgende vraag nog niet ingevult dan doen we alle buttons grijs.
@@ -82,18 +94,12 @@ function vote(voting) {
             geen.style.backgroundColor = '#444';
             oneens.style.backgroundColor = '#444';
             eens.style.backgroundColor = '#444';
-            console.log(answers[vraag]);
-            //return;
         }
-
 
         count++;
         loadQuestion(vraag);
         loadPartiesOpinions();
         pq.style.display = "none";
-        // eens.style.color = 'white';
-        // oneens.style.color = 'white';
-        // geen.style.color = 'white';
     } else {
         titel.innerText = 'De test is over';
         stelling.innerText = 'Dit zijn je resultaten';
@@ -105,6 +111,7 @@ function vote(voting) {
         partiesButton.style.display = 'none';
         bigPartiesButton.style.display = 'none';
         secularPartiesButton.style.display = 'none';
+        allButton.style.display = 'none';
         extra.style.display = 'none';
         countPoints();
         showScore();
@@ -123,26 +130,11 @@ function back() {
         buttonsKleur();
         pq.innerText = answers[vraag];
         pq.style.display = 'inline-block';
-
-        
     }
 }
 
 
-function buttonsKleur(){
-
-
-    // if (answers[vraag] == 'eens') {
-    //     eens.style.color = 'blue';
-    // }
-    // if (answers[vraag] == 'oneens') {
-    //     oneens.style.color = 'blue';
-    // }
-    // if (answers[vraag] == 'geen') {
-    //     geen.style.color = 'blue';
-    // }
-
-
+function buttonsKleur() {
     if (answers[vraag] === undefined) {
         geen.style.backgroundColor = '#444';
         oneens.style.backgroundColor = '#444';
@@ -154,14 +146,11 @@ function buttonsKleur(){
         eens.style.backgroundColor = 'blue';
         oneens.style.backgroundColor = '#444';
         geen.style.backgroundColor = '#444';
-    }
-     else if (answers[vraag] == 'oneens') {
-         oneens.style.backgroundColor = 'blue';
-         eens.style.backgroundColor = '#444';
-         geen.style.backgroundColor = '#444';
-     }
-
-    else if (answers[vraag] == 'geen') {
+    } else if (answers[vraag] == 'oneens') {
+        oneens.style.backgroundColor = 'blue';
+        eens.style.backgroundColor = '#444';
+        geen.style.backgroundColor = '#444';
+    } else if (answers[vraag] == 'geen') {
         oneens.style.backgroundColor = '#444';
         eens.style.backgroundColor = '#444';
         geen.style.backgroundColor = 'blue';
@@ -301,34 +290,53 @@ function countPoints() {
 
 //laat de score zien.
 function showScore() {
-    var i = 0;
-    partiesName.forEach(function (key, value) {
-        var som = partiesName[i]['score'] / 30 * 100;
+    filterResult('all');
+    document.getElementById("result").style.display = "block";
+}
 
-        addDiv = document.createElement('div');
+// Filter de score op basis van alles, secular of party groote.
+function filterResult(type) {
+    var i = 0, som = 0, filteredPartyNames = partiesName, resultPercentage = document.getElementById("resultPercentage"), finalResult = [];
+    // Maak de html leeg van de resultaten zodat we die opnieuw kunnen opbouwen.
+    resultPercentage.innerHTML = '';
 
-        partyName = document.createElement('h5');
-        partyScore = document.createElement('h5');
+    // Filter de punten die we hebben voor de parties op basis van ingesteld filter
+    if (type === 'secular') {
+        filteredPartyNames = partiesName.filter(function (value, key) {
+            return parties.find(party => party.name === value.name).secular;
+        });
+    } else if (type === 'big') {
+        filteredPartyNames = partiesName.filter(function(value, key) {
+            return parties.find(party => party.name === value.name).size >= partiesSize;
+        });
+    }
 
+    // loop over alles heen om te zorgen dat we alle parties maar 1 keer hebben.
+    filteredPartyNames.forEach(function (value, key) {
+        party = finalResult.find(result => result.name === value.name);
+        // als we in het eind resultaat nog niet deze party hebben beginnen we met tellen.
+        // else we hebben al een percentage dus we gaan dan optellen.
+        if (typeof party === typeof undefined) {
+            finalResult.push({name: value.name, score: value.score});
+        } else {
+            party.score += value.score;
+        }
+    });
 
-debugger;
-        partyName.innerText = partiesName[i]['name'];
-
-        partyScore.innerText = ' - ' + som.toFixed(0) + ' %';
-
-        partiesName.sort(function (a, b) {
-            var keyA = new Date(a.score),
-                keyB = new Date(b.score);
-            if (keyA > keyB) return -1;
-            if (keyA < keyB) return 1;
+    // loop over alles heen en maak er h5 van.
+    finalResult.forEach(function (key, value) {
+        // Sorteer op punten hoogste aantal punten eerst.
+        finalResult.sort(function (a, b) {
+            if (a.score > b.score) return -1;
+            if (a.score < b.score) return 1;
             return 0;
         });
 
-        buttons.appendChild(addDiv);
-        addDiv.setAttribute('class', 'row m-1');
-        addDiv.appendChild(partyName);
-        addDiv.appendChild(partyScore);
+        som = finalResult[i]['score'] / partiesName.length * 100;
+        h5 = document.createElement('h5');
+        h5.innerText = finalResult[i]['name'] + ' - ' + som.toFixed(0) + ' %';
+        resultPercentage.appendChild(h5);
+
         i++;
     });
-
 }

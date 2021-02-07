@@ -31,6 +31,7 @@
     <button id="partiesButton" onclick="toggleAllParties('opinion')" class="btn btn-dark m-3">Wat vinden de partijen?</button>
     <button id="bigPartiesButton" onclick="toggleAllParties('big')" class="btn btn-dark m-3">Zie de grote partijen.</button>
     <button id="secularPartiesButton" onclick="toggleAllParties('secular')" class="btn btn-dark m-3">Zie de seculiere partijen.</button>
+    <button id="allButton" onclick="toggleAllParties('all')" class="btn btn-dark m-3">Filter weghalen.</button>
 
     <div id="partiesInfo"></div>
 
@@ -45,9 +46,20 @@
 
     <div id="secularParties" style="display: none;">
     </div>
+
+    <div id="result" style="display: none;">
+        <div id="resultButtons">
+            <button id="bigPartiesResultButton" onclick="filterResult('big')" class="btn btn-dark m-3">Zie de grote partijen.</button>
+            <button id="secularResultButton" onclick="filterResult('secular')" class="btn btn-dark m-3">Zie de seculare partijen.</button>
+            <button id="allResultButton" onclick="filterResult('all')" class="btn btn-dark m-3">Zie alle partijen.</button>
+        </div>
+        <div id="resultPercentage">
+
+        </div>
+    </div>
 </div>
 
-<script src="data.js"></script>
+<script src="testdata.js"></script>
 <script src="script.js"></script>
 <script src="style.js"></script>
 </body>
